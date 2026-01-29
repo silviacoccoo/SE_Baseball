@@ -32,7 +32,7 @@ class View:
         # TODO
 
         # Riga 1
-        self.dd_anno = ft.Dropdown(label="Anno", width=200, alignment=ft.alignment.top_left)
+        self.dd_anno = ft.Dropdown(label="Anno", width=200, alignment=ft.alignment.top_left, on_change=self.controller.get_selected_year)
 
         row1 = ft.Row([ft.Container(self.txt_titolo, width=500),
                                ft.Container(None, width=0),
@@ -81,6 +81,9 @@ class View:
 
         self.page.scroll = "adaptive"
         self.page.update()
+
+        # Chiamo questo metodo nella view perchè la tendina non evolve, è sempre la stessa
+        self.controller.fill_dropdown_year()
 
     def cambia_tema(self, e):
         """ Cambia tema scuro/chiaro """
