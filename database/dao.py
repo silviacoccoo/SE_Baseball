@@ -10,7 +10,7 @@ class DAO:
 
         cursor = conn.cursor(dictionary=True)
         query = """ 
-        select t.year,t.id, t.team_code, t.name
+        select distinct t.year,t.id, t.team_code, t.name
         from team t
         where t.year=%s
         """
@@ -45,5 +45,27 @@ class DAO:
         cursor.close()
         conn.close()
         return result  # LISTA DI ANNI - NUMERO INTERO
+
+    @staticmethod
+    def get_teams_salaries(year):
+        conn = DBConnect.get_connection()
+
+        result_id_map= {}
+        cursor = conn.cursor(dictionary=True)
+        query = """ 
+                select s.year, s.team_id, sum(s.salary) as salario_tot
+                from salary s 
+                where s.year=%s
+                group by s.year, s.team_id 
+                """
+
+        cursor.execute(query, (year,))
+
+        for row in cursor:
+            result_id_map[row['team_id']]=row['salario_tot']
+
+        cursor.close()
+        conn.close()
+        return result_id_map # LISTA DI ANNI - NUMERO INTERO
 
 

@@ -57,9 +57,6 @@ class View:
                                ft.Container(self.pulsante_percorso, width=250)],
                       alignment=ft.MainAxisAlignment.CENTER)
 
-        for i in range(0,200):
-            self.txt_out_squadre.controls.append(ft.Text(f"Squadra {i}"))
-
         self.txt_risultato = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
 
         # --- Toggle Tema ---
